@@ -13,6 +13,15 @@
             background-color: black; 
             color: white; 
         }
+        .back-arrow {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
         button { 
             padding: 10px; 
             margin: 10px; 
@@ -40,6 +49,9 @@
 </head>
 <body>
 
+    <!-- Back Arrow -->
+    <a href="javascript:history.back()" class="back-arrow">⬅ Back</a>
+
     <h1>Lion Coin Pre-Sale</h1>
     
     <!-- TON Wallet Connect Button -->
@@ -49,9 +61,7 @@
 
     <div class="tier">
         <p>5 TON → 50,000 Lion Coin</p>
-        <button onclick="sendTransaction(5, 50000)"><a href="ton://transfer/UQASqD_AMYomxXvmrrxnMKEtCHlLnVu9shye0KC6_Gk-kaAo?amount=5000000000" target="_blank">
-    <button>Buy 50,000 Tokens (5 TON)</button>
-</a></button>
+        <button onclick="sendTransaction(5, 50000)">Buy Now</button>
     </div>
 
     <div class="tier">
