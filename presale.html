@@ -3,112 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lion Coin Pre-Sale</title>
-    <script src="https://unpkg.com/@tonconnect/ui@latest"></script>
+    <title>Coming Soon</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            padding: 20px; 
-            background-color: black; 
-            color: white; 
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
         }
-        button { 
-            padding: 10px; 
-            margin: 10px; 
-            font-size: 16px; 
-            cursor: pointer; 
-            background-color: rgb(6, 137, 245); 
-            color: white; 
-            border: none; 
-            border-radius: 5px;
-        }
-        .tier { 
-            border: 1px solid white; 
-            padding: 15px; 
-            margin: 10px; 
-            display: inline-block; 
-            width: 250px;
-        }
-        #ton-connect { margin-bottom: 20px; }
-        .coin-details { 
-            margin-top: 30px; 
-            padding: 20px; 
-            border-top: 1px solid white;
+        .container {
+            font-size: 2rem;
         }
     </style>
 </head>
 <body>
-
-    <h1>Lion Coin Pre-Sale</h1>
-    
-    <!-- TON Wallet Connect Button -->
-    <div id="ton-connect"></div>
-
-    <h2>Select Your Tier</h2>
-
-    <div class="tier">
-        <p>5 TON → 50,000 Lion Coin</p>
-        <button onclick="sendTransaction(5, 50000)"><a href="ton://transfer/UQASqD_AMYomxXvmrrxnMKEtCHlLnVu9shye0KC6_Gk-kaAo?amount=5000000000" target="_blank">
-            <button>Buy 50,000 Tokens (5 TON)</button>
-        </a>
+    <div class="container">
+        <h1>Coming Soon</h1>
     </div>
-
-    <div class="tier">
-        <p>2 TON → 20,000 Lion Coin</p>
-        <button onclick="sendTransaction(2, 20000)">Buy Now</button>
-    </div>
-
-    <div class="tier">
-        <p>1 TON → 10,000 Lion Coin</p>
-        <button onclick="sendTransaction(1, 10000)">Buy Now</button>
-    </div>
-
-    <!-- Coin Details Section -->
-    <div class="coin-details">
-        <h2>About Lion Coin</h2>
-        <p><strong>Token Name:</strong> Lion Coin</p>
-        <p><strong>Symbol:</strong> LION</p>
-        <p><strong>Blockchain:</strong> TON</p>
-        <p><strong>Total Supply:</strong> 100,000,000 LION</p>
-        <p><strong>Contract Address:</strong> (Coming Soon)</p>
-        <p><strong>Pre-Sale Wallet:</strong> <br>UQASqD_AMYomxXvmrrxnMKEtCHlLnVu9shye0KC6_Gk-kaAo</p>
-        
-        <!-- Second TON Wallet Connect Button -->
-        <div id="ton-connect-bottom"></div>
-    </div>
-
-    <script>
-        const walletAddress = "UQASqD_AMYomxXvmrrxnMKEtCHlLnVu9shye0KC6_Gk-kaAo"; 
-
-        // Initialize TON Wallet Connect UI
-        const tonConnectUI = new TONConnectUI.TonConnectUI({ 
-            manifestUrl: "https://YOUR_DOMAIN.com/tonconnect-manifest.json", 
-            buttonRootId: "ton-connect"
-        });
-
-        // Add TON Connect UI at the Bottom as well
-        const tonConnectBottom = new TONConnectUI.TonConnectUI({ 
-            manifestUrl: "https://YOUR_DOMAIN.com/tonconnect-manifest.json", 
-            buttonRootId: "ton-connect-bottom"
-        });
-
-        // Function to send transaction
-        async function sendTransaction(tonAmount, coinAmount) {
-            try {
-                const transaction = {
-                    to: walletAddress,
-                    value: tonAmount * 1e9, // Convert to nanoTON
-                    payload: "Lion Coin Pre-Sale"
-                };
-
-                await tonConnectUI.sendTransaction(transaction);
-                alert(Transaction Sent: ${tonAmount} TON → ${coinAmount} Lion Coin);
-            } catch (error) {
-                alert("Transaction Failed: " + error.message);
-            }
-        }
-    </script>
-
 </body>
 </html>
