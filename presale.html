@@ -17,9 +17,14 @@
             text-align: center;
             flex-direction: column;
         }
-        #timer {
+        #timer, #clock {
             font-size: 2rem;
             margin-top: 20px;
+            color: white; /* Ensuring both countdown and timer are white */
+        }
+        #clock {
+            font-size: 1.5rem;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -27,6 +32,7 @@
     <div class="container">
         <h1>Coming Soon</h1>
         <div id="timer"></div>
+        <div id="clock"></div>
     </div>
 
     <script>
@@ -48,12 +54,24 @@
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
             document.getElementById("timer").innerHTML = 
-                ${days}d ${hours}h ${minutes}m ${seconds}s;
+                Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s;
 
             setTimeout(updateTimer, 1000);
         }
 
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+
+            document.getElementById("clock").innerHTML = Current Time: ${hours}:${minutes}:${seconds};
+
+            setTimeout(updateClock, 1000);
+        }
+
         updateTimer();
+        updateClock();
     </script>
 </body>
 </html>
