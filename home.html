@@ -149,7 +149,58 @@
             </div>
             <button class="task-button" onclick="completeTask(200, 'verify.html')">🦁 claim</button>
         </div>
+         <script>
+  const claimBtn = document.getElementById("claimBtn");
+  const countdownText = document.getElementById("countdown");
+  const cooldownTime = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+  const lastClaimKey = "lastClaimTimestamp";
 
+  function checkClaimStatus() {
+    const lastClaim = localStorage.getItem(lastClaimKey);
+    if (lastClaim) {
+      const timePassed = Date.now() - parseInt(lastClaim);
+      if (timePassed < cooldownTime) {
+        disableButton(cooldownTime - timePassed);
+        return;
+      }
+    }
+    enableButton();
+  }
+
+  function claimReward() {
+    localStorage.setItem(lastClaimKey, Date.now());
+    disableButton(cooldownTime);
+    alert("Reward Claimed!");
+  }
+
+  function disableButton(timeLeft) {
+    claimBtn.disabled = true;
+    updateCountdown(timeLeft);
+  }
+
+  function enableButton() {
+    claimBtn.disabled = false;
+    countdownText.innerText = "";
+  }
+
+  function updateCountdown(timeLeft) {
+    const interval = setInterval(() => {
+      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      countdownText.innerText = Next claim in: ${hours}h ${minutes}m ${seconds}s;
+
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        enableButton();
+      }
+      timeLeft -= 1000;
+    }, 1000);
+  }
+
+  checkClaimStatus();
+</script>
 
 
         <div class="coin-container">
