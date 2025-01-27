@@ -117,97 +117,98 @@
     </div>
     <br>
 
-    <div class="task-container">
-        <div class="task">
-            <div class="task-detail">
-                <div class="task-image">
-                    <img src="material/images/logo.png" width="45px" alt="">
-                </div>
-                <div>
-                    <h4>claim rewards</h4>
-                    <div class="task-data">
-                        <img src="material/images/logo.png" width="20px" alt="Coin Icon">
-                        <h5>300</h5>
-                    </div>
-                </div>
-            </div>
-            <button class="task-button" onclick="completeTask(300, 'reword.html')">🦁 claim</button>
-        </div>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Rewards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
 
-        <div class="task">
-            <div class="task-detail">
-                <div class="task-image">
-                    <img src="material/images/logo.png" width="45px" alt="">
-                </div>
-                <div>
-                    <h4>verify and earn</h4>
-                    <div class="task-data">
-                        <img src="material/images/logo.png" width="20px" alt="Coin Icon">
-                        <h5>200</h5>
-                    </div>
-                </div>
-            </div>
-            <button class="task-button" onclick="completeTask(200, 'verify.html')">🦁 claim</button>
-        </div>
-         <script>
-  const claimBtn = document.getElementById("claimBtn");
-  const countdownText = document.getElementById("countdown");
-  const cooldownTime = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-  const lastClaimKey = "lastClaimTimestamp";
+        #claimButton {
+            background-color: #0080f8; /* Change to your preferred color */
+            color: rgb(0, 0, 0);
+            font-size: 18px;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px auto;
+        }
 
-  function checkClaimStatus() {
-    const lastClaim = localStorage.getItem(lastClaimKey);
-    if (lastClaim) {
-      const timePassed = Date.now() - parseInt(lastClaim);
-      if (timePassed < cooldownTime) {
-        disableButton(cooldownTime - timePassed);
-        return;
-      }
-    }
-    enableButton();
-  }
+        #claimButton:disabled {
+            background-color: #fafafa;
+            cursor: not-allowed;
+        }
 
-  function claimReward() {
-    localStorage.setItem(lastClaimKey, Date.now());
-    disableButton(cooldownTime);
-    alert("Reward Claimed!");
-  }
+        .button-logo {
+            width: 25px;
+            height: 25px;
+        }
 
-  function disableButton(timeLeft) {
-    claimBtn.disabled = true;
-    updateCountdown(timeLeft);
-  }
+        #nextClaimTime {
+            font-size: 16px;
+            color: gray;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
 
-  function enableButton() {
-    claimBtn.disabled = false;
-    countdownText.innerText = "";
-  }
+    <button id="claimButton" onclick="claimRewards()">
+        <img src="https://assets.onecompiler.app/42t6e3qhm/434aftb2k/1000135419.png" alt="Logo" class="button-logo">
+        Claim 200 Coins
+    </button>
 
-  function updateCountdown(timeLeft) {
-    const interval = setInterval(() => {
-      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+    <p id="nextClaimTime"></p>
 
-      countdownText.innerText = Next claim in: ${hours}h ${minutes}m ${seconds}s;
+    <script>
+        function claimRewards() {
+            let lastClaimTime = localStorage.getItem("lastClaimTime");
+            let now = new Date().getTime();
+            
+            if (lastClaimTime && now - lastClaimTime < 24 * 60 * 60 * 1000) {
+                alert("Next reward available in 24 hours!");
+                return;
+            }
 
-      if (timeLeft <= 0) {
-        clearInterval(interval);
-        enableButton();
-      }
-      timeLeft -= 1000;
-    }, 1000);
-  }
+            alert("✅ 200 Coins Claimed!");
 
-  checkClaimStatus();
-</script>
+            localStorage.setItem("lastClaimTime", now);
+            updateNextClaimTime();
+        }
 
+        function updateNextClaimTime() {
+            let lastClaimTime = localStorage.getItem("lastClaimTime");
+            let claimButton = document.getElementById("claimButton");
 
-        <div class="coin-container">
-            <div class="task-image">
-                <img src="material/images/logo.png" width="80%">
+            if (lastClaimTime) {
+                let nextClaimTime = new Date(parseInt(lastClaimTime) + 24 * 60 * 60 * 1000);
+                let now = new Date().getTime();
 
-               
+                if (now < nextClaimTime.getTime()) {
+                    claimButton.disabled = true;
+                    document.getElementById("nextClaimTime").innerText = 
+                        "Next reward available on: " + nextClaimTime.toLocaleString();
+                } else {
+                    claimButton.disabled = false;
+                    document.getElementById("nextClaimTime").innerText = "You can claim your reward now!";
+                }
+            }
+        }
+
+        window.onload = updateNextClaimTime;
+    </script>
+
 
                 <nav class="bottom-nav">
             <a href="home.html" class="nav-item">
